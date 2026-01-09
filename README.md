@@ -1,5 +1,6 @@
 # QMEE
 Bio 708
+Assignment 1:
 SETBP1-HD is a genetic disorder in humans caused by a knockout of the SETBP1 gene. SETBP1-HD currently has no treatment. This project aims to test if zebrafish are a good model for SETBP1-HD by inducing the same genetic mutation (SETBP1 knockout) in zebrafish. If zebrafish are a good biomedical model, they can be used to test theraputics for SETBP1-HD in high-throughput. 
 SETBP1-HD causes neurodevelopmental disorders in humans, impacting behaviour. Thus, if zebrafish are a good biomedical model for SETBP1-HD, we would expect to see modified behaviour in SETBP1 knockout fish relative to wildtype fish. This is measured through a startle response assay. 
 The startle response behavioural assay aims to measure the response of animals to a sudden stimulus (similar to a startle response to a predator).  I want to determine if SETBP1 knockout zebrafish display a "hyperactive" response to startle stimulus. To do so I ask, do SETBP1 knockout zebrafish display a greater distance moved in response to a startle than wildtype fish do? I also ask do SETBP1 knockout fish display a higher maximum velocity swim in response to startle stimulus than wildtype fish? Finally, I ask if a hemizygous knockout of SETBP1 has the impacts on velocity and distance travelled as a homozygous knockout does?
