@@ -1,5 +1,54 @@
-I can type whatever I want here
+I did all my work in the console by accident, so putting it in r markdown now to be able to commit to github
 
+```{r}
+## Bio708 Assignment 1: Embryo Startle Response Assay
+library(readxl)
+Startle_Trial_Stat_per_20s <- read_excel("Startle Trial Stat per 20s.xlsx")
+```
+
+Check that it’s a data frame
+```{r}
+class(Startle_Trial_Stat_per_20s)
+```
+
+Attach package dplyr and tidyr
+```{r}
+library(dplyr)
+library(tidyr)
+
+```
+
+Renaming my excel titles so theyre easier to use
+```{r}
+Startle_Trial_Stat_per_20s <- Startle_Trial_Stat_per_20s
+ colnames(Startle_Trial_Stat_per_20s)[
++     colnames(Startle_Trial_Stat_per_20s) == "Selection Result"
+] <- "selection_result"
+
+colnames(Startle_Trial_Stat_per_20s)[
++     colnames(Startle_Trial_Stat_per_20s) == "Velocity...6"
+   ] <- "max_velocity"
+
+colnames(Startle_Trial_Stat_per_20s)[
++     colnames(Startle_Trial_Stat_per_20s) == "Time bin"
+     ] <- "time_bin"
+
+```
+
+want to look at max velocity immediately following the startle, so only look at the first time bin
+```{r}
+first20s <- "0:15:00-0:15:20"
+```
+
+also need to convert from categorical to numerical (introduces na from the first two columns which are words, I think this is ok bc they aren’t result data, just specifying the units the rest of the sheet uses)
+
+```{r}
+Startle_Trial_Stat_per_20s$max_velocity <-
+    as.numeric(Startle_Trial_Stat_per_20s$max_velocity)
+
+```
+
+now boxplot
 ```{r}
 
 ```
