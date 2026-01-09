@@ -1,0 +1,41 @@
+Fish ID,Time point ,Developmental stage ,Strain,Library Prep,Sequencing Platform
+TDR18,14 hpf ,10 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR19,14 hpf,10 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR21,14 hpf ,10 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR22,14 hpf,10 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR23,10 hpf ,0 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR24,10 hpf ,0 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR25,10 hpf ,0 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR26,10 hpf ,0 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR27,19 hpf ,20 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR28,19 hpf ,20 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR29,19 hpf ,20 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR30,19 hpf ,20 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR35,12 hpf ,05 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR36,12 hpf ,05 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR37,12 hpf ,05 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR38,12 hpf ,05 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR39,16 hpf ,15 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR40,16 hpf ,15 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR41,16 hpf ,15 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR42,16 hpf ,15 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR43,24 hpf,30 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR44,24 hpf,30 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR45,24 hpf,30 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR46,24 hpf,30 somites,EKW,10x Single Cell 3' v3.1,NovaSeq S4 4 Lane
+TDR47,2dpf,larval-2dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR48,2dpf,larval-2dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR49,2dpf,larval-2dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR50,2dpf,larval-2dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR51,5dpf,larval-5dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR52,5dpf,larval-5dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR53,5dpf,larval-5dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR54,5dpf,larval-5dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR67,3dpf,larval-3dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR68,3dpf,larval-3dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR69,3dpf,larval-3dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR70,3dpf,larval-3dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR71,10dpf,larval-10dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR72,10dpf,larval-10dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR73,10dpf,larval-10dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
+TDR74,10dpf,larval-10dpf,EKW,10x HT Single Cell 3' v3.1 HT,NovaSeq S4 4 Lane
