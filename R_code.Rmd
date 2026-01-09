@@ -22,15 +22,15 @@ Renaming my excel titles so theyre easier to use
 ```{r}
 Startle_Trial_Stat_per_20s <- Startle_Trial_Stat_per_20s
  colnames(Startle_Trial_Stat_per_20s)[
-+     colnames(Startle_Trial_Stat_per_20s) == "Selection Result"
+     colnames(Startle_Trial_Stat_per_20s) == "Selection Result"
 ] <- "selection_result"
 
 colnames(Startle_Trial_Stat_per_20s)[
-+     colnames(Startle_Trial_Stat_per_20s) == "Velocity...6"
+     colnames(Startle_Trial_Stat_per_20s) == "Velocity...6"
    ] <- "max_velocity"
 
 colnames(Startle_Trial_Stat_per_20s)[
-+     colnames(Startle_Trial_Stat_per_20s) == "Time bin"
+     colnames(Startle_Trial_Stat_per_20s) == "Time bin"
      ] <- "time_bin"
 
 ```
@@ -50,6 +50,15 @@ Startle_Trial_Stat_per_20s$max_velocity <-
 
 now boxplot
 ```{r}
+ggplot(
+     data = subset(Startle_Trial_Stat_per_20s, time_bin == "0:15:00-0:15:20"),
+     aes(x = factor(selection_result), y = max_velocity)
+ ) +
+     geom_boxplot() +
+   geom_jitter(alpha = 0.7)+
+coord_cartesian(ylim = c(0, 200)) +
+     scale_y_continuous(breaks = seq(0, 200, by = 10))
+
 
 ```
 
