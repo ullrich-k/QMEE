@@ -11,10 +11,11 @@ Check that it’s a data frame
 class(Startle_Trial_Stat_per_20s)
 ```
 
-Attach package dplyr and tidyr
+Attach packages 
 ```{r}
 library(dplyr)
 library(tidyr)
+library(ggplot2)
 
 ```
 
@@ -78,17 +79,19 @@ now only want to look at the total distance traveled per individual
 am purposely keeping the grouping, because i want it grouped for my graph and for my analysis
 If i wanted to ungroup it could put in .groups = "drop"
 
-grouping is wrong for now, doesnt sum properly
-
+Also getting rid of first three rows where seection result and distance moved are both NA
 ```{r}
 library(dplyr)
 
 total_dist <-summarise(
-  group_by(Startle_Trial_Stat_per_20s ,Trial, Arena),
-  total_dist_moved=sum(dist_moved)
+  group_by(Startle_Trial_Stat_per_20s ,Trial, Arena, selection_result),
+  total_dist_moved = sum(dist_moved)
+  
 )
 
-
+total_dist <- total_dist[
+  !is.na(total_dist$selection_result),
+]
 
 ```
 
@@ -96,12 +99,19 @@ now boxplot
 warning is okay, it removes the three blank lines which i want removed
 ```{r}
 ggplot(
-     data = subset(Startle_Trial_Stat_per_20s),
-     aes(x = factor(selection_result), y = total_dist)
- ) +
-    geom_boxplot() +
-    geom_jitter(alpha = 0.7)
+  data = total_dist,
+  aes(
+    x = factor(selection_result),
+    y = total_dist_moved
+  )
+) +
+  geom_boxplot() +
+  geom_jitter(alpha = 0.7)
 
+
+```
+
+```{r}
 
 ```
 
