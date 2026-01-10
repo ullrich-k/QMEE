@@ -62,3 +62,46 @@ coord_cartesian(ylim = c(0, 200)) +
 
 ```
 
+Now going to graph distance traveled
+Introduces some NA, these are just blanks on the sheet where other lines had details about units etc. so dont need them
+
+```{r}
+ colnames(Startle_Trial_Stat_per_20s)[
+     colnames(Startle_Trial_Stat_per_20s) == "Distance moved 2"
+] <- "dist_moved"
+
+Startle_Trial_Stat_per_20s$dist_moved <- 
+  as.numeric(Startle_Trial_Stat_per_20s$dist_moved)
+```
+
+now only want to look at the total distance traveled per individual
+am purposely keeping the grouping, because i want it grouped for my graph and for my analysis
+If i wanted to ungroup it could put in .groups = "drop"
+
+grouping is wrong for now, doesnt sum properly
+
+```{r}
+library(dplyr)
+
+total_dist <-summarise(
+  group_by(Startle_Trial_Stat_per_20s ,Trial, Arena),
+  total_dist_moved=sum(dist_moved)
+)
+
+
+
+```
+
+now boxplot
+warning is okay, it removes the three blank lines which i want removed
+```{r}
+ggplot(
+     data = subset(Startle_Trial_Stat_per_20s),
+     aes(x = factor(selection_result), y = total_dist)
+ ) +
+    geom_boxplot() +
+    geom_jitter(alpha = 0.7)
+
+
+```
+
