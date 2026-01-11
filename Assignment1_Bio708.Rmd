@@ -49,7 +49,13 @@ Startle_Trial_Stat_per_20s$max_velocity <-
 
 ```
 
-now boxplot
+now boxplot, with the median values on the plot
+notes for future:
+- alpha is how light or dark the dots are
+- ylim is how high axis goes, the scale_y_continuous stuff is how i labelled it the way i want
+- stat summary reruns the calculation for median (but is the same value as the median of boxplot because its the same calculation), which is why you have to respecify with the function line that you want the median (could also probably put mean there if wanted )
+- rounded to 2 decimal points with the 2 in the aes line
+-vjust line is to put the label above the value, so where on the boxplot the written out median is placed
 ```{r}
 ggplot(
      data = subset(Startle_Trial_Stat_per_20s, time_bin == "0:15:00-0:15:20"),
@@ -58,10 +64,18 @@ ggplot(
      geom_boxplot() +
    geom_jitter(alpha = 0.7)+
 coord_cartesian(ylim = c(0, 200)) +
-     scale_y_continuous(breaks = seq(0, 200, by = 10))
+     scale_y_continuous(breaks = seq(0, 200, by = 10))+
+  stat_summary(
+    fun = median,
+    geom = "text",
+    aes(label = round(after_stat(y), 2)),
+    vjust = -0.5)
 
 
 ```
+
+
+
 
 Now going to graph distance traveled
 Introduces some NA, these are just blanks on the sheet where other lines had details about units etc. so dont need them
@@ -95,7 +109,7 @@ total_dist <- total_dist[
 
 ```
 
-now boxplot
+now boxplot total distance moved, with the median values printed on the plot
 warning is okay, it removes the three blank lines which i want removed
 ```{r}
 ggplot(
@@ -106,12 +120,16 @@ ggplot(
   )
 ) +
   geom_boxplot() +
-  geom_jitter(alpha = 0.7)
+  geom_jitter(alpha = 0.7)+
+
+  stat_summary(
+    fun = median,
+    geom = "text",
+    aes(label = round(after_stat(y), 2)),
+    vjust = -0.5)
 
 
 ```
 
-```{r}
 
-```
 
