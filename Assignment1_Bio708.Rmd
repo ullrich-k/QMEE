@@ -1,7 +1,12 @@
-I did all my work in the console by accident, so putting it in r markdown now to be able to commit to github
+I did all my work in the console by accident, so putting it in r markdown to commit to github
+
 
 ```{r}
 ## Bio708 Assignment 1: Embryo Startle Response Assay
+```
+
+Read spreadsheet with behavioural assay data 
+```{r}
 library(readxl)
 Startle_Trial_Stat_per_20s <- read_excel("Startle Trial Stat per 20s.xlsx")
 ```
@@ -50,6 +55,7 @@ Startle_Trial_Stat_per_20s$max_velocity <-
 ```
 
 now boxplot, with the median values on the plot
+
 notes for future:
 - alpha is how light or dark the dots are
 - ylim is how high axis goes, the scale_y_continuous stuff is how i labelled it the way i want
@@ -78,7 +84,7 @@ coord_cartesian(ylim = c(0, 200)) +
 
 
 Now going to graph distance traveled
-Introduces some NA, these are just blanks on the sheet where other lines had details about units etc. so dont need them
+- Introduces some NA, these are just blanks on the sheet where other lines had details about units etc. so dont need them
 
 ```{r}
  colnames(Startle_Trial_Stat_per_20s)[
@@ -90,10 +96,10 @@ Startle_Trial_Stat_per_20s$dist_moved <-
 ```
 
 now only want to look at the total distance traveled per individual
-am purposely keeping the grouping, because i want it grouped for my graph and for my analysis
-If i wanted to ungroup it could put in .groups = "drop"
+- am purposely keeping the grouping, because i want it grouped for my graph and for my analysis
+- If i wanted to ungroup it could put in .groups = "drop"
 
-Also getting rid of first three rows where seection result and distance moved are both NA
+- Also getting rid of first three rows where selection result and distance moved are both NA
 ```{r}
 library(dplyr)
 
@@ -109,8 +115,8 @@ total_dist <- total_dist[
 
 ```
 
-now boxplot total distance moved, with the median values printed on the plot
-warning is okay, it removes the three blank lines which i want removed
+now making a boxplot of total distance moved, with the median values printed on the plot
+- warning is okay, it removes the three blank lines which i want removed
 ```{r}
 ggplot(
   data = total_dist,
