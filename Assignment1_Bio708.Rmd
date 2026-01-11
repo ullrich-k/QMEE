@@ -41,10 +41,6 @@ colnames(Startle_Trial_Stat_per_20s)[
 
 ```
 
-want to look at max velocity immediately following the startle, so only look at the first time bin
-```{r}
-first20s <- "0:15:00-0:15:20"
-```
 
 also need to convert from categorical to numerical (introduces na from the first two columns which are words, I think this is ok bc they aren’t result data, just specifying the units the rest of the sheet uses)
 
@@ -99,7 +95,7 @@ now only want to look at the total distance traveled per individual
 - am purposely keeping the grouping, because i want it grouped for my graph and for my analysis
 - If i wanted to ungroup it could put in .groups = "drop"
 
-- Also getting rid of first three rows where selection result and distance moved are both NA
+- Also using !is.na to get rid of first three rows where selection result and distance moved are both NA
 ```{r}
 library(dplyr)
 
