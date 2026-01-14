@@ -1,5 +1,7 @@
 I did all my work in the console by accident, so putting it in r markdown to commit to github
 
+JD: Worked out well afaict, but of course easier to manage things in a script (or feel free to use .Rmd from beginning if you're good at it).
+
 
 ```{r}
 ## Bio708 Assignment 1: Embryo Startle Response Assay
@@ -23,6 +25,8 @@ library(tidyr)
 library(ggplot2)
 
 ```
+
+JD: Consider renaming your file as well; spaces in file paths cause problems for some tools.
 
 Renaming my excel titles so theyre easier to use
 ```{r}
@@ -133,5 +137,5 @@ ggplot(
 
 ```
 
-
+JD: Looks nice, grade 2.1/3
 
