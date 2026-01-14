@@ -1,5 +1,7 @@
 I did all my work in the console by accident, so putting it in r markdown to commit to github
 
+JD: Worked out well afaict, but of course easier to manage things in a script (or feel free to use .Rmd from beginning if you're good at it).
+
 
 ```{r}
 ## Bio708 Assignment 1: Embryo Startle Response Assay
@@ -24,6 +26,8 @@ library(ggplot2)
 
 ```
 
+JD: Consider renaming your file as well; spaces in file paths cause problems for some tools.
+
 Renaming my excel titles so theyre easier to use
 ```{r}
 Startle_Trial_Stat_per_20s <- Startle_Trial_Stat_per_20s
@@ -42,7 +46,7 @@ colnames(Startle_Trial_Stat_per_20s)[
 ```
 
 
-also need to convert from categorical to numerical (introduces na from the first two columns which are words, I think this is ok bc they aren’t result data, just specifying the units the rest of the sheet uses)
+Need to convert from categorical to numerical (introduces na from the first two columns which are words, I think this is ok bc they aren’t result data, just specifying the units the rest of the sheet uses)
 
 ```{r}
 Startle_Trial_Stat_per_20s$max_velocity <-
@@ -133,5 +137,5 @@ ggplot(
 
 ```
 
-
+JD: Looks nice, grade 2.1/3
 
