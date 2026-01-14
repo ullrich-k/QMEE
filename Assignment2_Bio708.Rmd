@@ -1,0 +1,12 @@
+---
+title: "Assignment2_Bio708"
+output: html_document
+date: "2026-01-14"
+---
+
+```{r}
+library(readxl)
+Startle_per_20s <- read_excel(Startle_per_20s.xlsx)
+
+```
+
