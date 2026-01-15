@@ -42,13 +42,28 @@ colnames(Startle_per_20s)[
 ```
 
 
+
+
+
+
+
+
 Checking the R class that columns got added as, then correcting when needed
 
 Check what class selection result variable is
-- want this as charachter
+- after thinking, theres only 4 options so may be best as a factor 
 ```{r}
 class(Startle_per_20s$selection_result)
 ```
+
+convert class selection to factors 
+```{r}
+Startle_per_20s$selection_result <-
+  as.factor(Startle_per_20s$selection_result)
+class(Startle_per_20s$selection_result)
+```
+
+
 
 Check what class velocity is
 ```{r}
@@ -62,6 +77,7 @@ Changing velocity to numeric and checking that it worked
 Startle_per_20s$max_velocity <-
     as.numeric(Startle_per_20s$max_velocity)
 class(Startle_per_20s$max_velocity)
+
 
 
 sum(is.na(Startle_per_20s$max_velocity))
@@ -93,9 +109,16 @@ class(Startle_per_20s$dist_moved)
 sum(is.na(Startle_per_20s$dist_moved))
 ```
 
+So then getting rid of the three rows where the max velocity column is NA (these are the same as the three rows where distance moved is NA so it removes those as well)
+
+```{r}
+Startle_per_20s <- Startle_per_20s %>% filter(!is.na(max_velocity))
+```
+
+
+
 
 I expect my distance moved and maximum velocity to always be 0 or greater (no negative numbers) so check that this is correct in my dataset by plotting it 
-- Has a warning message that it removes my three NAs which is okay
 - binwidth determines the size of the bars, higher number is wider bars so more of them kindof blend together, smaller width can distinguish individual lines better
 - This shows that all of my maximum velocity values are positive (as expected so this is good!)
 - note to self: at this point am looking at max velocity for all timepoints, not just the first time bin (which is the most biologically relevant)
@@ -106,6 +129,7 @@ ggplot(
  ) +
   geom_histogram(binwidth=10
                  )
+
 ```
 - For next part of the assignment, convert this to long format, and plot histogram for only the first time bin coloured by selection result (biologically relevant histogram, this is just for data checking)
 
@@ -120,3 +144,34 @@ ggplot(data=subset(Startle_per_20s),
        
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+max_velocity_per_20s <- Startle_per_20s %>%
+  group_by(Trial, Arena) %>%
+  slice_min(`time_bin`, n = 1, with_ties = FALSE) %>%
+  ungroup()
+
+nrow(max_velocity_per_20s)
+```
+
+
+
+
+Save cleaned variables that are set up how i want to use them (max velocity with just first time bin)(distance travelled as the sum of all time bins)
+```{r}
+saveRDS(Startle_per_20s,"max_velocity")
+```
+
+also want to gitignire my plots maybe?
