@@ -98,12 +98,21 @@ I expect my distance moved and maximum velocity to always be 0 or greater (no ne
 - Has a warning message that it removes my three NAs which is okay
 - binwidth determines the size of the bars, higher number is wider bars so more of them kindof blend together, smaller width can distinguish individual lines better
 - This shows that all of my maximum velocity values are positive (as expected so this is good!)
+- note to self: at this point am looking at max velocity for all timepoints, not just the first time bin (which is the most biologically relevant)
 ```{r}
 ggplot(
      data = subset(Startle_per_20s),
      aes (y = max_velocity)
  ) +
-  geom_histogram(binwidth=15
+  geom_histogram(binwidth=10
                  )
+```
+- For next part of the assignment, convert this to long format, and plot histogram for only the first time bin coloured by selection result (biologically relevant histogram, this is just for data checking)
+
+Plot distance moved for all time bins, I expect distance travelled should always be 0 or greater, if not there is an error in the data 
+- histogram shows that distance travelled is always a positive number which is good!
+- excludes the three NAs, which is what I want
+```{r}
+ggplot(data=subset(Startle_per_20s)
 ```
 
