@@ -57,17 +57,20 @@ class(Startle_per_20s$max_velocity)
 ```
 Changing velocity to numeric and checking that it worked
 - introduces NAs, this is okay because these are spreadsheet lines at the top that are before the dataset has started
-- Maybe should add in a line that counts the number of NAs added to confirm this??
+- count number of NAs, to make sure I only have the three expected blank lines, and none embedded in the dataset
 ```{r}
 Startle_per_20s$max_velocity <-
     as.numeric(Startle_per_20s$max_velocity)
 class(Startle_per_20s$max_velocity)
+
+
+sum(is.na(Startle_per_20s$max_velocity))
 ```
 
 
 
 Check what class timepoint variable is
-- while time is something that could be numeric, in my case I am using it more as a category than a numeric peice of data, so leaving it as a charchter is okay
+- while time is something that could be numeric, in my case I am using it more as a category than a numeric piece of data, so leaving it as a charchter is okay
 ```{r}
 class(Startle_per_20s$time_bin)
 ```
@@ -80,10 +83,27 @@ class(Startle_per_20s$dist_moved)
 Correct class of distance moved variable from charachter to numeric
 - This introduces NAs to the dataset
 - This is okay because these are empty lines at the top of the sheet that had no data in them
+- Check number of NAs to make sure it is only the three that I would expect, and none embedded into the dataset
 ```{r}
 Startle_per_20s$dist_moved <- 
   as.numeric(Startle_per_20s$dist_moved)
 
 class(Startle_per_20s$dist_moved)
+
+sum(is.na(Startle_per_20s$dist_moved))
+```
+
+
+I expect my distance moved and maximum velocity to always be 0 or greater (no negative numbers) so check that this is correct in my dataset by plotting it 
+- Has a warning message that it removes my three NAs which is okay
+- binwidth determines the size of the bars, higher number is wider bars so more of them kindof blend together, smaller width can distinguish individual lines better
+- This shows that all of my maximum velocity values are positive (as expected so this is good!)
+```{r}
+ggplot(
+     data = subset(Startle_per_20s),
+     aes (y = max_velocity)
+ ) +
+  geom_histogram(binwidth=15
+                 )
 ```
 
