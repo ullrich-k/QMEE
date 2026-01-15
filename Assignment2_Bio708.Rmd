@@ -153,10 +153,11 @@ ggplot(data=subset(Startle_per_20s),
 
 
 
-
-
-
-
+Making a dataframe that just looks at the first timepoint for use looking at maximum velocity
+- slice_min takes only the smallest of the variable (here time bin), so it only takes the time 15-15:20 which is the first 30s
+  - this is confirmed by visually inspecting the dataframe and i can see that the timepoints are all the 20s that I wanted
+- with_ties is so that in the case the same fish has two values that are the lowest time bin (which shouldnt happen given my sampling style), it keeps only one of them
+- nrow is a check to make sure that i only got one row per fish (there are 65 fish)
 ```{r}
 max_velocity_per_20s <- Startle_per_20s %>%
   group_by(Trial, Arena) %>%
@@ -165,6 +166,7 @@ max_velocity_per_20s <- Startle_per_20s %>%
 
 nrow(max_velocity_per_20s)
 ```
+
 
 
 
