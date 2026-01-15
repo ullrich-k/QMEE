@@ -165,8 +165,23 @@ max_velocity_per_20s <- Startle_per_20s %>%
   ungroup()
 
 nrow(max_velocity_per_20s)
+view(max_velocity_per_20s)
 ```
 
+Also want to make a dataframe that is a sum of the distances moved for every time bin per fish to get total maximum distance moved
+- use view to look at it like a spreadsheet
+- only has columns for dist moved and velocity because they are the columns i changed to be numeric (the is.numeric function only uses the numeric ones)
+    - that is okay these are the only ones i want, just good to remember
+```{r}
+total_dist_moved <- Startle_per_20s %>%
+  group_by(Trial,Arena) %>%
+  summarise(across(where(is.numeric),~sum(.x,na.rm=TRUE)),
+  .groups = "drop"
+  )
+
+view(total_dist_moved)
+
+```
 
 
 
