@@ -4,9 +4,86 @@ output: html_document
 date: "2026-01-14"
 ---
 
-```{r}
-library(readxl)
-Startle_per_20s <- read_excel("Startle_per_20s.csv")
 
+Load important packages
+```{r}
+
+library(tidyverse)
+library(dplyr)
+
+```
+
+Reading my csv file with my data
+- has warning messages because some columns have the same names as eachother
+- R renamed them for me so can proceed with some/rename some to be more specific for my use
+```{r}
+Startle_per_20s <- read_csv("Startle_Trial_Stat_per_20s.csv")
+
+```
+Renaming some important columns to be specific for my use
+```{r}
+
+ colnames(Startle_per_20s)[
+     colnames(Startle_per_20s) == "Selection Result"
+] <- "selection_result"
+
+colnames(Startle_per_20s)[
+     colnames(Startle_per_20s) == "Velocity...6"
+   ] <- "max_velocity"
+
+ colnames(Startle_per_20s)[
+     colnames(Startle_per_20s) == "Distance moved 2"
+] <- "dist_moved"
+
+
+colnames(Startle_per_20s)[
+     colnames(Startle_per_20s) == "Time bin"
+     ] <- "time_bin"
+```
+
+
+Checking the R class that columns got added as, then correcting when needed
+
+Check what class selection result variable is
+- want this as charachter
+```{r}
+class(Startle_per_20s$selection_result)
+```
+
+Check what class velocity is
+```{r}
+class(Startle_per_20s$max_velocity)
+
+```
+Changing velocity to numeric and checking that it worked
+- introduces NAs, this is okay because these are spreadsheet lines at the top that are before the dataset has started
+- Maybe should add in a line that counts the number of NAs added to confirm this??
+```{r}
+Startle_per_20s$max_velocity <-
+    as.numeric(Startle_per_20s$max_velocity)
+class(Startle_per_20s$max_velocity)
+```
+
+
+
+Check what class timepoint variable is
+- while time is something that could be numeric, in my case I am using it more as a category than a numeric peice of data, so leaving it as a charchter is okay
+```{r}
+class(Startle_per_20s$time_bin)
+```
+Check what class distance moved variable is
+```{r}
+class(Startle_per_20s$dist_moved)
+
+```
+
+Correct class of distance moved variable from charachter to numeric
+- This introduces NAs to the dataset
+- This is okay because these are empty lines at the top of the sheet that had no data in them
+```{r}
+Startle_per_20s$dist_moved <- 
+  as.numeric(Startle_per_20s$dist_moved)
+
+class(Startle_per_20s$dist_moved)
 ```
 
