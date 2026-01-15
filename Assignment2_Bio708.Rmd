@@ -113,6 +113,10 @@ Plot distance moved for all time bins, I expect distance travelled should always
 - histogram shows that distance travelled is always a positive number which is good!
 - excludes the three NAs, which is what I want
 ```{r}
-ggplot(data=subset(Startle_per_20s)
+ggplot(data=subset(Startle_per_20s), 
+       aes(y=dist_moved)
+)+
+  geom_histogram(binwidth=10)
+       
 ```
 
