@@ -2,11 +2,9 @@
 Bio 708
 
 Assignment 2:
-
-The directory that the first file should be run from QMEE/ ....
-
-
-
+My first script reads a csv of startle response assay data. I checked and corrected the R classes of my variables, then plotted the total distance travelled, and max velocity in the first 20s as histograms to visualize the data and determine if there were any errors. The data showed all positive values (as expected), and the only NAs found were the expected blanks before the first measurement, so they were removed from analysis.  Because my variables of interest are maximum velocity in the first 20s of the assay, and total distance over the whole assay time, i made seperate dataframes for each of these variables, and saved them as rds. I set up these rds files to go to my gitignore. 
+My second script reads in my two rds files, and confirms that they are dataframes. Then I calculate mean, standard deviation, and standard error by genotpe for maximum velocity for the first 20s and total distance travelled. I don't really know what statistical tests are most appropriate for this type of data, so i hope to increase the complexity of analysis in future assignments as we learn about statistical tests. 
+The directory that the first file should be run from QMEE/Assignment2_File1_Bio708.Rmd and the second file should be run from QMEE/Assignment2_File2_Bio708.Rmd
 
 
 
