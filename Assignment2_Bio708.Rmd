@@ -187,8 +187,13 @@ view(total_dist_moved)
 
 
 Save cleaned variables that are set up how i want to use them (max velocity with just first time bin)(distance travelled as the sum of all time bins)
+- dont want these "made' objects committed to my repo, so used gitignore (click on it in files, and it opens a new little tab you can write in) to put in *.rmd which means that all rmd files are gitignored
+- you can do it file by file, but i thought this would be best so that i dont forget to gitignore any of them 
 ```{r}
-saveRDS(Startle_per_20s,"max_velocity")
+saveRDS(max_velocity_per_20s,"max_velocity_per_20s.rds")
+saveRDS(total_dist_moved,"total_dist_moved.rds")
+
 ```
 
-also want to gitignire my plots maybe?
+
+
