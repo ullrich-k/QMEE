@@ -1,5 +1,15 @@
 # QMEE
 Bio 708
+
+Assignment 2:
+
+The directory that the first file should be run from QMEE/ ....
+
+
+
+
+
+
 Assignment 1:
 SETBP1-HD is a genetic disorder in humans caused by a knockout of the SETBP1 gene. SETBP1-HD currently has no treatment. This project aims to test if zebrafish are a good model for SETBP1-HD by inducing the same genetic mutation (SETBP1 knockout) in zebrafish. If zebrafish are a good biomedical model, they can be used to test theraputics for SETBP1-HD in high-throughput. 
 SETBP1-HD causes neurodevelopmental disorders in humans, impacting behaviour. Thus, if zebrafish are a good biomedical model for SETBP1-HD, we would expect to see modified behaviour in SETBP1 knockout fish relative to wildtype fish. This is measured through a startle response assay. 
