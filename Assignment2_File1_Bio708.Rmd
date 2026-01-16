@@ -148,7 +148,7 @@ Also want to make a dataframe that is a sum of the distances moved for every tim
     - that is okay these are the only ones i want, just good to remember
 ```{r}
 total_dist_moved <- Startle_per_20s %>%
-  group_by(Trial,Arena) %>%
+  group_by(selection_result,Trial,Arena) %>%
   summarise(across(where(is.numeric),~sum(.x,na.rm=TRUE)),
   .groups = "drop"
   )
