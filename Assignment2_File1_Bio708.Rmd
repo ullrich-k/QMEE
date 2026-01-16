@@ -46,6 +46,7 @@ Check what class selection result variable is
 - after thinking, theres only 4 options so may be best as a factor 
 ```{r}
 class(Startle_per_20s$selection_result)
+
 ```
 
 convert class selection to factors 
@@ -108,7 +109,7 @@ I expect my distance moved and maximum velocity to always be 0 or greater (no ne
 ```{r}
 ggplot(
      data = subset(Startle_per_20s),
-     aes (y = max_velocity)
+     aes (x = max_velocity)
  ) +
   geom_histogram(binwidth=10
                  )
@@ -121,9 +122,9 @@ Plot distance moved for all time bins, I expect distance travelled should always
 - excludes the three NAs, which is what I want
 ```{r}
 ggplot(data=subset(Startle_per_20s), 
-       aes(y=dist_moved)
+       aes(x=dist_moved)
 )+
-  geom_histogram(binwidth=10)
+  geom_histogram(binwidth=5)
        
 ```
 
@@ -136,7 +137,8 @@ Making a dataframe that just looks at the first timepoint for use looking at max
 max_velocity_per_20s <- Startle_per_20s %>%
   group_by(Trial, Arena) %>%
   slice_min(`time_bin`, n = 1, with_ties = FALSE) %>%
-  ungroup()
+ ungroup()
+
 
 nrow(max_velocity_per_20s)
 view(max_velocity_per_20s)
