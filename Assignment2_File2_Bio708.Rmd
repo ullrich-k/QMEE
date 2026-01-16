@@ -18,17 +18,35 @@ class(max_velocity_per_20s_clean)
 ```
 
 
-Trying to do mean distance by genotype
-- realized i forgot to add the selection result into my dataframe, so had to add that to assignment2 file 1 before i can run this 
+Calculate mean dist travelled by genotype
+- also calculate the standard deviation (sd) and standard error (se)
 ```{r}
 
 
 
 mean_dist_by_genotype <- total_dist_clean %>%
   group_by(selection_result)%>%
-  summarise(mean_total_dist = mean(dist_moved),
+  summarise(
+         mean_total_dist = mean(dist_moved),
+        sd_total_dist = sd(dist_moved),  
+        se_total_dist = sd(dist_moved)/sqrt(n()),
       .groups = "drop" )
 
 print(mean_dist_by_genotype)
+```
+
+Calculate mean maximum velocity per genotype
+- also calculate standard deviation and standard error
+
+```{r}
+max_velocity_per_20s_by_genotype <- max_velocity_per_20s_clean %>%
+  group_by(selection_result)%>%
+  summarise(
+         mean_max_velocity_per_20s = mean(max_velocity),
+        sd_total_dist = sd(max_velocity),  
+        se_total_dist = sd(max_velocity)/sqrt(n()),
+      .groups = "drop" )
+
+print(max_velocity_per_20s_by_genotype)
 ```
 
