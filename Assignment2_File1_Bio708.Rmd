@@ -1,9 +1,8 @@
 ---
-title: "Assignment2_Bio708"
+title: "Assignment2_File1_Bio708"
 output: html_document
 date: "2026-01-14"
 ---
-
 
 Load important packages
 ```{r}
@@ -41,13 +40,6 @@ colnames(Startle_per_20s)[
      ] <- "time_bin"
 ```
 
-
-
-
-
-
-
-
 Checking the R class that columns got added as, then correcting when needed
 
 Check what class selection result variable is
@@ -62,8 +54,6 @@ Startle_per_20s$selection_result <-
   as.factor(Startle_per_20s$selection_result)
 class(Startle_per_20s$selection_result)
 ```
-
-
 
 Check what class velocity is
 ```{r}
@@ -82,9 +72,6 @@ class(Startle_per_20s$max_velocity)
 
 sum(is.na(Startle_per_20s$max_velocity))
 ```
-
-
-
 Check what class timepoint variable is
 - while time is something that could be numeric, in my case I am using it more as a category than a numeric piece of data, so leaving it as a charchter is okay
 ```{r}
@@ -108,15 +95,11 @@ class(Startle_per_20s$dist_moved)
 
 sum(is.na(Startle_per_20s$dist_moved))
 ```
-
 So then getting rid of the three rows where the max velocity column is NA (these are the same as the three rows where distance moved is NA so it removes those as well)
 
 ```{r}
 Startle_per_20s <- Startle_per_20s %>% filter(!is.na(max_velocity))
 ```
-
-
-
 
 I expect my distance moved and maximum velocity to always be 0 or greater (no negative numbers) so check that this is correct in my dataset by plotting it 
 - binwidth determines the size of the bars, higher number is wider bars so more of them kindof blend together, smaller width can distinguish individual lines better
@@ -143,15 +126,6 @@ ggplot(data=subset(Startle_per_20s),
   geom_histogram(binwidth=10)
        
 ```
-
-
-
-
-
-
-
-
-
 
 Making a dataframe that just looks at the first timepoint for use looking at maximum velocity
 - slice_min takes only the smallest of the variable (here time bin), so it only takes the time 15-15:20 which is the first 30s
@@ -184,8 +158,6 @@ view(total_dist_moved)
 ```
 
 
-
-
 Save cleaned variables that are set up how i want to use them (max velocity with just first time bin)(distance travelled as the sum of all time bins)
 - dont want these "made' objects committed to my repo, so used gitignore (click on it in files, and it opens a new little tab you can write in) to put in *.rmd which means that all rmd files are gitignored
 - you can do it file by file, but i thought this would be best so that i dont forget to gitignore any of them 
@@ -194,6 +166,3 @@ saveRDS(max_velocity_per_20s,"max_velocity_per_20s.rds")
 saveRDS(total_dist_moved,"total_dist_moved.rds")
 
 ```
-
-
-
