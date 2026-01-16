@@ -1,0 +1,20 @@
+---
+title: "Assignment2_File2_Bio708"
+output: html_document
+date: "2026-01-16"
+---
+
+Install important packages and load in my RDS files
+```{r}
+library(tidyverse)
+
+total_dist_moved <- readRDS("total_dist_moved.rds")
+max_velocity_per_20s <- readRDS("max_velocity_per_20s.rds")
+```
+
+
+
+```{r}
+
+```
+
