@@ -6,22 +6,22 @@ date: "2026-01-14"
 
 Load important packages
 ```{r}
-
 library(tidyverse)
 library(dplyr)
-
 ```
 
 Reading my csv file with my data
-- has warning messages because some columns have the same names as eachother
+- has warning messages because some columns have the same names as each other
 - R renamed them for me so can proceed with some/rename some to be more specific for my use
 ```{r}
-Startle_per_20s <- read_csv("Startle_Trial_Stat_per_20s.csv")
-
+Startle_per_20s <- readxl::read_excel("Startle_per_20s.csv")
 ```
+**BMB**: this is the kind of thing that, ideally, you would fix upstream  
+**BMB**: wrong file name!! This **was not reproducible** as is (edited to match file name in repo) [this was actually an Excel file, maybe you had a CSV elsewhere with a different name??]
+
+
 Renaming some important columns to be specific for my use
 ```{r}
-
  colnames(Startle_per_20s)[
      colnames(Startle_per_20s) == "Selection Result"
 ] <- "selection_result"
@@ -40,13 +40,14 @@ colnames(Startle_per_20s)[
      ] <- "time_bin"
 ```
 
+**BMB**: much easier to use `dplyr::rename()` for this ...
+
 Checking the R class that columns got added as, then correcting when needed
 
 Check what class selection result variable is
-- after thinking, theres only 4 options so may be best as a factor 
+- after thinking, there's only 4 options so maybe best as a factor 
 ```{r}
 class(Startle_per_20s$selection_result)
-
 ```
 
 convert class selection to factors 
@@ -59,39 +60,33 @@ class(Startle_per_20s$selection_result)
 Check what class velocity is
 ```{r}
 class(Startle_per_20s$max_velocity)
-
 ```
 Changing velocity to numeric and checking that it worked
-- introduces NAs, this is okay because these are spreadsheet lines at the top that are before the dataset has started
+- introduces NAs, this is okay because these are spreadsheet lines at the top that are before the dataset has started. (**BMB**: it would be better to drop these rows before converting ... or even read the file twice, once to get the column names and once with `skip = 4, colnames = FALSE` to get the values
 - count number of NAs, to make sure I only have the three expected blank lines, and none embedded in the dataset
 ```{r}
 Startle_per_20s$max_velocity <-
     as.numeric(Startle_per_20s$max_velocity)
 class(Startle_per_20s$max_velocity)
-
-
-
 sum(is.na(Startle_per_20s$max_velocity))
 ```
 Check what class timepoint variable is
-- while time is something that could be numeric, in my case I am using it more as a category than a numeric piece of data, so leaving it as a charchter is okay
+- while time is something that could be numeric, in my case I am using it more as a category than a numeric piece of data, so leaving it as a character is okay
 ```{r}
 class(Startle_per_20s$time_bin)
 ```
 Check what class distance moved variable is
 ```{r}
 class(Startle_per_20s$dist_moved)
-
 ```
 
 Correct class of distance moved variable from charachter to numeric
 - This introduces NAs to the dataset
 - This is okay because these are empty lines at the top of the sheet that had no data in them
-- Check number of NAs to make sure it is only the three that I would expect, and none embedded into the dataset
+- Check number of NAs to make sure it is only the three that I would expect, and none embedded into the dataset (**BMB**: if you fixed things as suggested above you wouldn't have to do this repetitively ...)
 ```{r}
 Startle_per_20s$dist_moved <- 
   as.numeric(Startle_per_20s$dist_moved)
-
 class(Startle_per_20s$dist_moved)
 
 sum(is.na(Startle_per_20s$dist_moved))
@@ -108,13 +103,12 @@ I expect my distance moved and maximum velocity to always be 0 or greater (no ne
 - note to self: at this point am looking at max velocity for all timepoints, not just the first time bin (which is the most biologically relevant)
 ```{r}
 ggplot(
-     data = subset(Startle_per_20s),
+     data = subset(Startle_per_20s), ## ?? subset() doesn't do anything here??
      aes (x = max_velocity)
  ) +
-  geom_histogram(binwidth=10
-                 )
-
+  geom_histogram(binwidth=10)
 ```
+
 - For next part of the assignment, convert this to long format, and plot histogram for only the first time bin coloured by selection result (biologically relevant histogram, this is just for data checking)
 
 Plot distance moved for all time bins, I expect distance travelled should always be 0 or greater, if not there is an error in the data 
@@ -122,10 +116,8 @@ Plot distance moved for all time bins, I expect distance travelled should always
 - excludes the three NAs, which is what I want
 ```{r}
 ggplot(data=subset(Startle_per_20s), 
-       aes(x=dist_moved)
-)+
+       aes(x=dist_moved))+
   geom_histogram(binwidth=5)
-       
 ```
 
 Making a dataframe that just looks at the first timepoint for use looking at maximum velocity
@@ -136,7 +128,9 @@ Making a dataframe that just looks at the first timepoint for use looking at max
 ```{r}
 max_velocity_per_20s <- Startle_per_20s %>%
   group_by(Trial, Arena) %>%
-  slice_min(`time_bin`, n = 1, with_ties = FALSE) %>%
+  ## BMB: don't need back-ticks `time_bin` unless you have spaces etc in the variable name
+  ## slice_min() takes a 'by' (not .by ...!)  argument, don't need to group/ungroup
+  slice_min(time_bin, n = 1, with_ties = FALSE) %>%
  ungroup()
 
 
@@ -154,17 +148,15 @@ total_dist_moved <- Startle_per_20s %>%
   summarise(across(where(is.numeric),~sum(.x,na.rm=TRUE)),
   .groups = "drop"
   )
-
 view(total_dist_moved)
-
+## BMB: ditto for .by with summarise
 ```
 
 
 Save cleaned variables that are set up how i want to use them (max velocity with just first time bin)(distance travelled as the sum of all time bins)
-- dont want these "made' objects committed to my repo, so used gitignore (click on it in files, and it opens a new little tab you can write in) to put in *.rmd which means that all rmd files are gitignored
-- you can do it file by file, but i thought this would be best so that i dont forget to gitignore any of them 
+- don't want these "made' objects committed to my repo, so used gitignore (click on it in files, and it opens a new little tab you can write in) to put in *.rmd which means that all rmd files are gitignored
+- you can do it file by file, but i thought this would be best so that i dont forget to .gitignore any of them (**BMB** yes!)
 ```{r}
 saveRDS(max_velocity_per_20s,"max_velocity_per_20s.rds")
 saveRDS(total_dist_moved,"total_dist_moved.rds")
-
 ```
