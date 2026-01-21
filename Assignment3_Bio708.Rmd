@@ -1,0 +1,107 @@
+---
+title: "Assignment3_Bio708"
+output: html_document
+date: "2026-01-20"
+---
+
+Install packages
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+```
+
+Bring in my csv file and data frame from assignment 2
+- R renames some titles, I know that I could edit this (and remove the empty rows) myself in a spreadsheet, but I am challenging myself in this class to take my data from the software and do all modifications in R, rather than making any edits in excel 
+```{r}
+Startle_per_20s.csv <- read_csv("Startle_Trial_Stat_per_20s.csv")
+max_velocity_per_20s_clean <- readRDS("max_velocity_per_20s.rds")
+
+```
+
+Start with a simple ggplot
+- ordered to have control on the left and greatest knockout on the right 
+- theme line makes y axis labels on the angle
+```{r}
+ggplot(max_velocity_per_20s_clean,
+     aes(x = factor(selection_result,
+          levels = c("LD WTSK", "LD WT", "LD KO", "LD KOKO"),
+          labels = c("Wildtype (SickKids)", "Wildtype (In house)", "Hemizygous SETBP1 knockout", "Homozygous SETBP1 knockout")), 
+         y = max_velocity) ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1))+
+     geom_boxplot() +
+   geom_jitter(width=0.2, alpha = 0.5)+
+  labs(x="Genotype", y="Max Velocity (mm/s)")+
+coord_cartesian(ylim = c(0, 200)) +
+     scale_y_continuous(breaks = seq(0, 200, by = 10))+
+  stat_summary(
+    fun = median,
+    geom = "text",
+    fontface = "bold",
+    aes(label = round(after_stat(y), 2)),
+    vjust = -0.5
+    
+  )
+```
+
+
+Now try making a violin plot
+- boxplot shows that medians are similar, but some have much larger interquartile ranges, so I want to look and see if SETBP1 mutants have a wider range of responses than wildtype control fish do (biological relevance is that they may show hypersensitivity to stimulus or lack a startle response, or, some fish may display both, so variation within the population may suggest there are multiple neurological symptoms of SETBP1-HD being picked up in this assay)
+- Violin plot shows that the range of responses is widest in the SETBP1 homozygous knockout group, however the first control group seems to have a similar distribution as the SETBP1 knockout fish do
+
+```{r}
+ggplot(max_velocity_per_20s_clean,
+       aes(x = selection_result, y = max_velocity)
+) +
+  geom_violin(trim = FALSE, alpha = 0.4) +
+  geom_jitter(width = 0.2, alpha = 0.3, size = 1.5) +
+  coord_cartesian(ylim = c(0, 250)) +
+  scale_x_discrete(
+    limits = c("LD WTSK", "LD WT", "LD KO", "LD KOKO"),
+    labels = c(
+      "Wildtype (SickKids)",
+      "Wildtype (In house)",
+      "Hemizygous SETBP1 knockout",
+      "Homozygous SETBP1 knockout"
+    ))+
+   theme(
+    axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(x = "Genotype", y = "Max velocity")
+```
+
+
+Now I want to look at the distance travelled metrics
+- Will use time as the x-axis insted of my categorical variables which will allow it to be much more information dense
+
+
+
+
+
+
+
+```{r}
+Startle_per_20s.csv$`Distance moved 2` <-
+  as.numeric(Startle_per_20s.csv$`Distance moved 2`)
+
+Startle_per_20s.csv$'Selection Result' <-
+  factor(Startle_per_20s.csv$'Selection Result')
+
+
+Startle_summary <- Startle_per_20s.csv %>%
+  group_by(`Time bin`, `Selection Result`) %>%
+  summarise(
+    mean_distance = mean(`Distance moved 2`, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+ggplot(Startle_summary,
+       aes(x=`Time bin`, y= mean_distance, colour = 'Selection Result', group = 'Selection Result')
+       )+
+  geom_line()
+
+```
+```{r}
+
+```
+
