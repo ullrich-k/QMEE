@@ -9,6 +9,7 @@ Install packages
 library(tidyverse)
 library(ggplot2)
 library(dplyr) 
+
 ```
 
 Bring in my csv file and data frame from assignment 2
@@ -67,7 +68,7 @@ ggplot(max_velocity_per_20s_clean,
     ))+
    theme(
     axis.text.x = element_text(angle = 45, hjust = 1))+
-  labs(x = "Genotype", y = "Max velocity")
+  labs(x = "Genotype", y = "Max velocity") 
 ```
 
 
@@ -96,8 +97,12 @@ Startle_summary <- Startle_per_20s.csv %>%
 
 Startle_summary$`Selection Result` <- factor(
   Startle_summary$`Selection Result`,
-  levels = c("LD WTSK", "LD WT", "LD KO", "LD KOKO")
-)
+  levels = c("LD WTSK", "LD WT", "LD KO", "LD KOKO"),
+  labels = c(
+      "Wildtype (SickKids)",
+      "Wildtype (In house)",
+      "Hemizygous SETBP1 knockout",
+      "Homozygous SETBP1 knockout"))
 
 ggplot(Startle_summary,
        aes(x = `Time bin`,
@@ -137,9 +142,12 @@ Startle_summary <- Startle_per_20s.csv %>%
 
 Startle_summary$`Selection Result` <- factor(
   Startle_summary$`Selection Result`,
-  levels = c("LD WTSK", "LD WT", "LD KO", "LD KOKO")
-)
-
+  levels = c("LD WTSK", "LD WT", "LD KO", "LD KOKO"),
+  labels = c(
+      "Wildtype (SickKids)",
+      "Wildtype (In house)",
+      "Hemizygous SETBP1 knockout",
+      "Homozygous SETBP1 knockout"))
 ggplot(Startle_summary,
        aes(x = `Time bin`,
            y = mean_distance,
@@ -157,5 +165,41 @@ ggplot(Startle_summary,
    theme(
     axis.text.x = element_text(angle = 45, hjust = 1))+
 labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)")
+```
+
+
+I find this graph the most informative 
+- shows trends over time best (others dont emphasize the decrease in distance travelled over time)
+- you are able to distinguish the confidence intervals
+
+```{r}
+
+ggplot(Startle_summary,
+       aes(x = `Time bin`,
+           y = mean_distance, colour = `Selection Result`,
+           group  = 1)   
+) +
+ geom_ribbon(
+    aes(ymin = ci_lower, ymax = ci_upper, fill = `Selection Result`),
+    alpha = 0.2,
+    colour = NA
+  
+  ) +
+  geom_line(
+    aes(y = mean_distance, colour = `Selection Result`),  
+    linewidth = 1
+  )+
+  facet_wrap(~`Selection Result`) +   
+  coord_cartesian(ylim = c(70, 120)) +  
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    strip.text = element_text(face = "bold")  
+  ) +
+  labs(
+    x = "Time after startle (20s intervals)",
+    y = "Mean distance moved (mm/s)"
+  )
+ 
 ```
 
