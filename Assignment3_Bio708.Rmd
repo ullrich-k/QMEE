@@ -56,7 +56,7 @@ ggplot(max_velocity_per_20s_clean,
        aes(x = selection_result, y = max_velocity)
 ) +
   geom_violin(trim = FALSE, alpha = 0.4) +
-  geom_jitter(width = 0.2, alpha = 0.3, size = 1.5) +
+  geom_jitter(width = 0.2, alpha = 0.9, size = 1.5) +
   coord_cartesian(ylim = c(0, 250)) +
   scale_x_discrete(
     limits = c("LD WTSK", "LD WT", "LD KO", "LD KOKO"),
@@ -68,6 +68,7 @@ ggplot(max_velocity_per_20s_clean,
     ))+
    theme(
     axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme_classic()+
   labs(x = "Genotype", y = "Max velocity") 
 ```
 
