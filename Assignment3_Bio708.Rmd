@@ -3,7 +3,7 @@ title: "Assignment3_Bio708"
 output: html_document
 date: "2026-01-20"
 ---
-See my README (QMEE/README.md) for info about why I made certain graphing choices - in particular their relationship to the cleveland hierarchy!
+See my README (QMEE/README.md) for more info
 
 
 Install packages
