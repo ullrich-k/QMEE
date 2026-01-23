@@ -1,8 +1,5 @@
 # QMEE
 Bio 708
-what you are trying to show
-some of the choices that you have made
-the basis for these choices (e.g., Cleveland hierarchy, proximity of comparisons, or other principles of graphical communication)
 
 Assignment 3:
 I have plotted two concepts, firstly the maximum velocity following a startle, and secondly the distance travelled over time in the 200s following the startle. 
