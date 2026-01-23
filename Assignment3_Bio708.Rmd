@@ -22,21 +22,19 @@ max_velocity_per_20s_clean <- readRDS("max_velocity_per_20s.rds")
 
 Start with a simple ggplot
 - ordered to have control on the left and greatest knockout on the right 
-- theme line makes y axis labels on the angle
+- \n to line break
 ```{r}
 ggplot(max_velocity_per_20s_clean,
      aes(x = factor(selection_result,
           levels = c("LD WTSK", "LD WT", "LD KO", "LD KOKO"),
-          labels = c("Wildtype (SickKids)", "Wildtype (In house)", "Hemizygous SETBP1 knockout", "Homozygous SETBP1 knockout")), 
+          labels = c("Wildtype \n (SickKids)", "Wildtype \n (In house)", "Hemizygous\nSETBP1 knockout", "Homozygous\nSETBP1 knockout")), 
          y = max_velocity) ) +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1))+
     theme_classic()+
      geom_boxplot() +
-  
   labs(x="Genotype", y="Max Velocity (mm/s)")+
 coord_cartesian(ylim = c(0, 200)) +
      scale_y_continuous(breaks = seq(0, 200, by = 10))+
+                               
   stat_summary(
     fun = median,
     geom = "text",
@@ -62,10 +60,10 @@ ggplot(max_velocity_per_20s_clean,
   scale_x_discrete(
     limits = c("LD WTSK", "LD WT", "LD KO", "LD KOKO"),
     labels = c(
-      "Wildtype (SickKids)",
-      "Wildtype (In house)",
-      "Hemizygous SETBP1 knockout",
-      "Homozygous SETBP1 knockout"
+      "Wildtype \n(SickKids)",
+      "Wildtype \n(In house)",
+      "Hemizygous \nSETBP1 knockout",
+      "Homozygous \nSETBP1 knockout"
     ))+
    theme(
     axis.text.x = element_text(angle = 45, hjust = 1))+
@@ -74,14 +72,10 @@ ggplot(max_velocity_per_20s_clean,
 ```
 
 
-Now I want to look at the distance travelled metrics
+Now I want to look at the distance traveled metrics
 - Will use time as the x-axis instead of my categorical variables which will allow it to be much more information dense
 - this graph has all of the data very closely bunched together, this is not ideal because I care more about the groups relative to one another, than I do about absolute values 
-
-```{r}
-
-```
-
+- colour coding based on wildtype groups vs control groups
 
 ```{r}
 Startle_per_20s.csv$`Distance moved 2` <-
@@ -141,7 +135,7 @@ labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)", co
 Graphing distance traveled over time again
 - y-axis modified to get a closer look at the difference between groups
 - added in confidence intervals
-- It is kindof hard to differentiate each of the different confidence intervals because they are so overlayed
+- It is difficult to differentiate each of the different confidence intervals because they overlap so much
 
 ```{r}
 
@@ -198,7 +192,7 @@ labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)", co
 
 
 I find this graph the most informative 
-- shows trends over time best (others dont emphasize the decrease in distance travelled over time)
+- shows trends over time best 
 - you are able to distinguish the confidence intervals
 
 ```{r}
