@@ -23,7 +23,12 @@ max_velocity_per_20s_clean <- readRDS("max_velocity_per_20s.rds")
 ```
 
 Start with a simple ggplot
-- ordered to have control on the left and greatest knockout on the right 
+- ordered to have control (100% SETBP1 function) on the left and knockout (0% SETBP1 function) on the right
+- Grid lines looked cluttered, so opted for medians written on the plot
+- Also tried having dots plotted lightly under the boxplot, but it was very distracting. Behaviour data is known to have a lot of noise, so as I increase my sample size it will only get more distracting - leading me to think that a clean boxplot is going to be more useful to me for displaying my data than a plot with every point
+- Anchored at 0 (logical)
+- Not very information dense (categorical variable on x-axis), but is very clean and clear
+
 - \n to line break
 ```{r}
 ggplot(max_velocity_per_20s_clean,
@@ -48,9 +53,14 @@ coord_cartesian(ylim = c(0, 200)) +
 ```
 
 
-Now try making a violin plot
-- boxplot shows that medians are similar, but some have much larger interquartile ranges, so I want to look and see if SETBP1 mutants have a wider range of responses than wildtype control fish do (biological relevance is that they may show hypersensitivity to stimulus or lack a startle response, or, some fish may display both, so variation within the population may suggest there are multiple neurological symptoms of SETBP1-HD being picked up in this assay)
-- Violin plot shows that the range of responses is widest in the SETBP1 homozygous knockout group, however the first control group seems to have a similar distribution as the SETBP1 knockout fish do
+Now a violin plot
+- Have a small dataset, so want a graph with points on it
+- Want to see if SETBP1 mutants have a wider range of responses than wildtype control fish do (hyper- and hypo- sensitivity to stimulus), so violin shape will be informative
+- Graph anchored at 0 (logical)
+- Visually, can easily assess that the small sample size of "Wildtype (in house)" is likely driving its shape on the plot (rather than biological difference between groups)
+- Anchored at 0 (logical)
+- Not very information dense (categorical variable on x-axis)
+
 
 ```{r}
 ggplot(max_velocity_per_20s_clean,
@@ -70,14 +80,19 @@ ggplot(max_velocity_per_20s_clean,
    theme(
     axis.text.x = element_text(angle = 45, hjust = 1))+
   theme_classic()+
-  labs(x = "Genotype", y = "Max velocity") 
+  labs(x = "Genotype", y = "Max velocity (mm/s)") 
 ```
 
 
-Now I want to look at the distance traveled metrics
-- Will use time as the x-axis instead of my categorical variables which will allow it to be much more information dense
-- this graph has all of the data very closely bunched together, this is not ideal because I care more about the groups relative to one another, than I do about absolute values 
-- colour coding based on wildtype groups vs control groups
+Now graphing the distance traveled metrics (for the next three graphs)
+- Hypothesized that wildtype fish will decrease their distance traveled over time following a startle, and SETBP1 mutant fish will not, this is the trend (or absence of) that I am aiming to capture
+- Time as the x-axis (instead of my categorical variables), so more information dense
+- Achored against 0 (logical)
+- Colour coding based on wildtype groups vs control groups. 
+     - Blue red palatte is distinguishable for colourblind individuals.  
+     - while hue is difficult to distinguist (Cleveland hierarchy) I do not need the reader to distinguish between the two different controls and two different mutants, I only want them to look at differences between controls and mutants, which this accentuates
+- Data is plotted on a common axis, which is optimal in the cleveland hierarchy
+- Mutants and controls are distinguished not only by colour but also by shape (colour is low on cleveland hierarchy)
 
 ```{r}
 Startle_per_20s.csv$`Distance moved 2` <-
@@ -142,9 +157,9 @@ labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)", co
 
 ```
 
-Graphing distance traveled over time again
-- y-axis modified to get a closer look at the difference between groups
-- added in confidence intervals
+Graphing distance traveled over time again (For analysis, not a visually optimal graph)
+- y-axis modified to get a closer look at the difference between groups (y-axis is not anchored against anything logical, but easier to look at angle between points)
+- Added confidence intervals
 - It is difficult to differentiate each of the different confidence intervals because they overlap so much
 
 ```{r}
@@ -202,10 +217,13 @@ ggplot(Startle_summary,
 labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)", colour = "Genotype", shape = "Genotype")
 ```
 
-
-I find this graph the most informative 
-- shows trends over time best 
-- you are able to distinguish the confidence intervals
+Final graph of distance over time
+- Clearly addresses my hypothesis, because they are on different plots the angle of lines is easy to distinguish 
+- Able to distinguish the confidence intervals!
+- Not as high on the Cleveland hierarchy because the information is not on a common axis, however if including confidence intervals being able to interpret them is important 
+- Y-axis is logical (starts at 0), but have to look closely to see differences in angle 
+    - More important to have a logical axis than to try to skew the reader into seeing a change over time
+    - In a publication would make graph large so that even on a linear scale anchored at 0 a difference in angle could still be observed
 
 ```{r}
 
