@@ -225,7 +225,7 @@ ggplot(Startle_summary,
     linewidth = 1
   )+
   facet_wrap(~`Selection Result`) +   
-  coord_cartesian(ylim = c(70, 120)) +  
+  coord_cartesian(ylim = c(0, 120)) +  
   scale_x_discrete(
     labels = function(x) {
       starts <- seq(0, 180, by = 20)
