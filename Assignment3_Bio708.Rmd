@@ -55,7 +55,7 @@ ggplot(max_velocity_per_20s_clean,
        aes(x = selection_result, y = max_velocity)
 ) +
   geom_violin(trim = FALSE, alpha = 0.4) +
-  geom_jitter(width = 0.2, alpha = 0.9, size = 1.5) +
+  geom_jitter(width = 0.2, height = 0, alpha = 0.9, size = 1.5) +
   coord_cartesian(ylim = c(0, 250)) +
   scale_x_discrete(
     limits = c("LD WTSK", "LD WT", "LD KO", "LD KOKO"),
@@ -108,11 +108,18 @@ setbp1_palette <- c(
   "Hemizygous SETBP1 knockout" = "#e31a1c",  
   "Homozygous SETBP1 knockout" = "#fb6a4a"   
 )
+setbp1_shapes <- c(
+  "Wildtype (SickKids)"        = 16, 
+  "Wildtype (In house)"        = 16,  
+  "Hemizygous SETBP1 knockout" = 17, 
+  "Homozygous SETBP1 knockout" = 17   
+)
 ggplot(Startle_summary,
        aes(x = `Time bin`,
            y = mean_distance,
            colour = `Selection Result`,
-           group  = `Selection Result`)
+           group  = `Selection Result`,
+           shape = `Selection Result`)
 ) +
   
   geom_line(linewidth = 1) +
@@ -126,9 +133,10 @@ ggplot(Startle_summary,
     }
   ) +
   scale_colour_manual(values=setbp1_palette)+
+  scale_shape_manual(values=setbp1_shapes)+
    theme(
     axis.text.x = element_text(angle = 45, hjust = 1))+
-labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)", colour = "Genotype")
+labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)", colour = "Genotype", shape="Genotype")
 
 ```
 
@@ -166,7 +174,8 @@ ggplot(Startle_summary,
            y = mean_distance,
            colour = `Selection Result`,
            fill = `Selection Result`,
-           group  = `Selection Result`)
+           group  = `Selection Result`,
+           shape = `Selection Result`)
 ) +
   geom_ribbon(
     aes(ymin = ci_lower, ymax = ci_upper),
@@ -184,10 +193,11 @@ ggplot(Startle_summary,
   ) +
    scale_colour_manual(values=setbp1_palette)+
   scale_fill_manual(values = setbp1_palette)+
+  scale_shape_manual(values = setbp1_shapes)+
    guides(fill = "none") +
    theme(
     axis.text.x = element_text(angle = 45, hjust = 1))+
-labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)", colour = "Genotype")
+labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)", colour = "Genotype", shape = "Genotype")
 ```
 
 
