@@ -31,8 +31,9 @@ ggplot(max_velocity_per_20s_clean,
          y = max_velocity) ) +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1))+
+    theme_classic()+
      geom_boxplot() +
-   geom_jitter(width=0.2, alpha = 0.5)+
+  
   labs(x="Genotype", y="Max Velocity (mm/s)")+
 coord_cartesian(ylim = c(0, 200)) +
      scale_y_continuous(breaks = seq(0, 200, by = 10))+
@@ -77,6 +78,9 @@ Now I want to look at the distance travelled metrics
 - Will use time as the x-axis instead of my categorical variables which will allow it to be much more information dense
 - this graph has all of the data very closely bunched together, this is not ideal because I care more about the groups relative to one another, than I do about absolute values 
 
+```{r}
+
+```
 
 
 ```{r}
@@ -104,19 +108,33 @@ Startle_summary$`Selection Result` <- factor(
       "Wildtype (In house)",
       "Hemizygous SETBP1 knockout",
       "Homozygous SETBP1 knockout"))
-
+setbp1_palette <- c(
+  "Wildtype (SickKids)"        = "#1f78b4",  
+  "Wildtype (In house)"        = "#4fa3d1",  
+  "Hemizygous SETBP1 knockout" = "#e31a1c",  
+  "Homozygous SETBP1 knockout" = "#fb6a4a"   
+)
 ggplot(Startle_summary,
        aes(x = `Time bin`,
            y = mean_distance,
            colour = `Selection Result`,
            group  = `Selection Result`)
 ) +
+  
   geom_line(linewidth = 1) +
   geom_point(size = 2)+
  coord_cartesian(ylim=c(0,120))+
+  scale_x_discrete(
+    labels = function(x) {
+      starts <- seq(0, 180, by = 20)
+      ends   <- seq(20, 200, by = 20)
+      paste0(starts, "–", ends)
+    }
+  ) +
+  scale_colour_manual(values=setbp1_palette)+
    theme(
     axis.text.x = element_text(angle = 45, hjust = 1))+
-labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)")
+labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)", colour = "Genotype")
 
 ```
 
@@ -153,19 +171,29 @@ ggplot(Startle_summary,
        aes(x = `Time bin`,
            y = mean_distance,
            colour = `Selection Result`,
+           fill = `Selection Result`,
            group  = `Selection Result`)
 ) +
   geom_ribbon(
-    aes(ymin = ci_lower, ymax = ci_upper, fill = `Selection Result`),
+    aes(ymin = ci_lower, ymax = ci_upper),
     alpha = 0.2,
     colour = NA
 ) +
   geom_line(linewidth = 1) +
   geom_point(size = 2)+
  coord_cartesian(ylim=c(60,120))+
+  scale_x_discrete(
+    labels = function(x) {
+      starts <- seq(0, 180, by = 20)
+      ends   <- seq(20, 200, by = 20)
+      paste0(starts, "–", ends)}
+  ) +
+   scale_colour_manual(values=setbp1_palette)+
+  scale_fill_manual(values = setbp1_palette)+
+   guides(fill = "none") +
    theme(
     axis.text.x = element_text(angle = 45, hjust = 1))+
-labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)")
+labs(x= "Time after startle (20s intervals)", y="Mean distance moved (mm/s)", colour = "Genotype")
 ```
 
 
@@ -192,6 +220,12 @@ ggplot(Startle_summary,
   )+
   facet_wrap(~`Selection Result`) +   
   coord_cartesian(ylim = c(70, 120)) +  
+  scale_x_discrete(
+    labels = function(x) {
+      starts <- seq(0, 180, by = 20)
+      ends   <- seq(20, 200, by = 20)
+      paste0(starts, "–", ends)}
+  ) +
   theme_minimal() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
