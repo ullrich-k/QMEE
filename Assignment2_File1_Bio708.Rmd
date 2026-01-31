@@ -14,7 +14,7 @@ Reading my csv file with my data
 - has warning messages because some columns have the same names as each other
 - R renamed them for me so can proceed with some/rename some to be more specific for my use
 ```{r}
-Startle_per_20s <- readxl::read_excel("Startle_per_20s.csv")
+Startle_per_20s <- read_csv("Startle_Trial_Stat_per_20s.csv")
 ```
 **BMB**: this is the kind of thing that, ideally, you would fix upstream  
 **BMB**: wrong file name!! This **was not reproducible** as is (edited to match file name in repo) [this was actually an Excel file, maybe you had a CSV elsewhere with a different name??]
