@@ -1,6 +1,8 @@
 # QMEE
 Bio 708
 
+JD: Not sure why your third and fourth graphs have the gray background; the fifth graph looks much better without it. You should think about the advantages and disadvantages of including 0 on your vertical scales. I kind of like the fourth figure (except for the gray) and it doesn't bother me that much that I can't exactly tell where the CIs are, I feel like I get the sense of how much they overlap. I liked the discussion and the way you used color to indicate similarity. Grade: 2.1/3
+
 Assignment 3:
 I have plotted two concepts, firstly the maximum velocity following a startle, and secondly the distance travelled over time in the 200s following the startle. 
 
