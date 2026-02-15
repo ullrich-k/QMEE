@@ -1,0 +1,82 @@
+Assignment6_Bio708
+
+Instructions:
+Formulate a clear hypothesis about your data.
+Make a linear model for your hypothesis.
+Draw and discuss at least one of each of the following:
+diagnostic plot
+prediction plot
+inferential plot (e.g., a coefficient plot, or something from emmeans or effects)
+
+Hypothesis (Prediction):
+My hypothesis is that both genotypes of SETBP1 knockout zebrafish will display a decreased total distance moved relative to wildtype zebrafish in a distance travelled assay
+
+Linear model:
+Chose a one way ANOVA because I have a categorical predictor variable (genotype), and a continuous outcome variable, and I am trying to see variance in distance
+
+
+
+Get set up
+```{r}
+library(tidyverse)
+total_dist_clean <- readRDS("total_dist_moved.rds")
+```
+
+Run a one-way ANOVA
+```{r}
+dist_model <- lm(dist_moved ~ selection_result, data=total_dist_clean)
+
+anova(dist_model)
+```
+
+Diagnostic plots:
+
+Residuals vs fitted plot
+- no fan shape, this is good because that would show heteroscedasticity
+- pretty minimal curve around the line of predicted
+- (In vertical lines because categorical, 4 lines for 4 categories)
+- (residuals go very high and low, this is because distance data is around 1000)
+
+Q-Q residuals plot
+- Is a straight diagonal line, fits reference line well
+- A little bit tailed on each end
+
+Scale-location plot:
+- line trend pretty horizontal 
+- again no fan shape
+
+Overall, these three diagnostic plots suggest a normal distribution, with minimal deviation from model assumptions
+
+
+Residuals vs leverage plot:
+- looks like it has a few points outside range of Cook's distance, so investigating further
+- Threshold of 4/n
+- 4 points outside this, so removed them and ran a new anova to see if it would make any big changes
+- F increased a little and p decreased a little but not a lot
+- so this can be attributed to biological variation and not these 4 fish driving the model 
+
+```{r}
+
+plot(dist_model, id.n=4)
+
+
+
+cooks <- cooks.distance(dist_model)
+summary(cooks)
+threshold <- 4 / nrow(total_dist_clean)
+which(cooks > threshold)
+influential <- which(cooks > 4/nrow(total_dist_clean))
+model2 <- lm(dist_moved ~ selection_result,
+             data = total_dist_clean[-influential, ])
+
+anova(dist_model)
+anova(model2)
+
+```
+
+Prediction plot:
+
+```{r}
+
+```
+
