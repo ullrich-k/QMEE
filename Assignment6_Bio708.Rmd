@@ -17,12 +17,13 @@ Chose a one way ANOVA because I have a categorical predictor variable (genotype)
 
 Get set up
 ```{r}
+## BMB: please *don't* put install.packages() in your code
 library(tidyverse)
-install.packages("emmeans")
+## install.packages("emmeans")
 library(emmeans)
-install.packages("dotwhisker")
+## install.packages("dotwhisker")
 library(dotwhisker)
-install.packages("effects")
+## install.packages("effects")
 library(effects)
 total_dist_clean <- readRDS("total_dist_moved.rds")
 ```
@@ -30,14 +31,14 @@ total_dist_clean <- readRDS("total_dist_moved.rds")
 Run a one-way ANOVA
 ```{r}
 dist_model <- lm(dist_moved ~ selection_result, data=total_dist_clean)
-
 anova(dist_model)
 ```
 
 Diagnostic plots:
 
 Residuals vs fitted plot
-- no fan shape, this is good because that would show heteroscedasticity
+
+- no fan shape, this is good because that would show heteroscedasticity [BMB: save this consideration for the scale-location plot]
 - pretty minimal curve around the line of predicted
 - (In vertical lines because categorical, 4 lines for 4 categories)
 - (residuals go very high and low, this is because distance data is around 1000)
@@ -48,9 +49,9 @@ Q-Q residuals plot
 
 Scale-location plot:
 - line trend pretty horizontal 
-- again no fan shape
+- again no fan shape [BMB: we don't expect a fan here (a trend instead) if heterosced., because we've taken the absolute value]
 
-Overall, these three diagnostic plots suggest a normal distribution, with minimal deviation from model assumptions
+Overall, these three diagnostic plots suggest a normal distribution, with minimal deviation from model assumptions [BMB: only the Q-Q tests normality, unless you mean 'normal' in the more common-language sense]
 
 
 Residuals vs leverage plot:
@@ -59,6 +60,7 @@ Residuals vs leverage plot:
 - 4 points outside this, so removed them and ran a new anova to see if it would make any big changes
 - F increased a little and p decreased a little but not a lot
 - so this can be attributed to biological variation and not these 4 fish driving the model 
+[BMB: this is reasonable, but you should look at changes in *estimated effects* rather than just p-values/test statistics]
 
 ```{r}
 
@@ -118,4 +120,6 @@ dotwhisker::dwplot(
 
 ```
 
+BMB: 'arena' is a little awkward because there are so many levels. Eventually you probably want to handle this with a mixed model/make 'arena' a random-effect grouping variable
 
+BMB. mark: 2
