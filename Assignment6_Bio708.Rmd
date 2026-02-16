@@ -9,11 +9,10 @@ prediction plot
 inferential plot (e.g., a coefficient plot, or something from emmeans or effects)
 
 Hypothesis (Prediction):
-My hypothesis is that both genotypes of SETBP1 knockout zebrafish will display a decreased total distance moved relative to wildtype zebrafish in a distance travelled assay
+My hypothesis is that both genotypes of SETBP1 knockout zebrafish will display a decreased total distance moved relative to both genotypes of wildtype zebrafish in a distance travelled assay
 
 Linear model:
-Chose a one way ANOVA because I have a categorical predictor variable (genotype)nd a continuous outcome variable, and I am trying to see variance in distance
-
+Chose a one way ANOVA because I have a categorical predictor variable (genotype) and a continuous outcome variable, and I am trying to see variance in distance
 
 
 Get set up
@@ -45,7 +44,7 @@ Residuals vs fitted plot
 
 Q-Q residuals plot
 - Is a straight diagonal line, fits reference line well
-- A little bit tailed on each end
+- A little bit tailed on each end (but minimal, still showing a good fit to model)
 
 Scale-location plot:
 - line trend pretty horizontal 
@@ -80,19 +79,20 @@ anova(model2)
 
 ```
 
-Prediction plot:
+Prediction plots:
 
 Emmeans:
-- blue lines represent confidence intervals
+- blue lines represent 95% confidence intervals
 - confidence intervals overlap a lot 
-- red lines are pairwise comparisons (mostly put this in to have for future code, I don't need it to do pairwise comparison here)
+- red lines are pairwise comparisons 
+- Their overlap suggests that there the difference in distance travelled between each of the genotypes is statistically unclear
 
 ```{r}
 plot(emmeans(dist_model, ~ selection_result), comparisons = TRUE)
 ```
 
 Effects plot
-- this is same as the plot above functionally because I don't have any covariates here (I just want this code in my notes because I will in the future include covariates for batch and sex and body size)
+- this is same as the plot above functionally because I don't have any covariates included here (I just want this code in my notes because I will in the future include covariates for batch and sex and body size)
 - vertical error bars are 95% CIs for the predicted mean
 - CIs overlap substantially
 
@@ -102,11 +102,11 @@ plot(allEffects(dist_model))
 Inferential plot:
 
 Dot-whisker plot
-- Right now I don't have data for the main covariates that I want to include here, which would be sex, size, and batch, so am working with arena only
-- When have others that will reasonably interact with one another, will swap out for them (I understand that the biological relevance of arena and genotype interactions are minimal, however sex and length are very importnt here so want to make sure I know how to run the code for the future)
-- Looking to see if whiskers cross 0, those that do not are statistically significant at the chosen 95% confidence interval
+- Right now I don't have data for the main covariates that I want to include here, which would be sex, size, and batch, so I have added arena to use
+- When have other covariates that will reasonably interact with one another, I will swap out for them (I understand that the biological relevance of arena and genotype interactions are minimal, however sex and length are very important here so want to make sure I know how to run the code for the future)
+- Looking to see if whiskers cross 0, those that do not are statistically significant at the chosen 95% confidence interval (or the direction of the interaction is unclear)
 - most of my intervals cross 0, meaning that the sign of the effect is unclear
-- Overall, this is not a biologicaly meaningful metric so I won't draw any conclusions from what I see, I just wanted to include something else so I could plot something other than just distance moved by genotype again
+- Overall, this is not a biologically meaningful metric so I won't draw any conclusions from what I see, I just wanted to include something else so I could plot something other than just distance moved by genotype again
 ```{r}
 add_model <- lm(dist_moved ~ selection_result+Arena, data=total_dist_clean)
 int_model <- lm(dist_moved ~ selection_result*Arena, data=total_dist_clean)
