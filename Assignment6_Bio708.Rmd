@@ -12,7 +12,7 @@ Hypothesis (Prediction):
 My hypothesis is that both genotypes of SETBP1 knockout zebrafish will display a decreased total distance moved relative to wildtype zebrafish in a distance travelled assay
 
 Linear model:
-Chose a one way ANOVA because I have a categorical predictor variable (genotype), and a continuous outcome variable, and I am trying to see variance in distance
+Chose a one way ANOVA because I have a categorical predictor variable (genotype)nd a continuous outcome variable, and I am trying to see variance in distance
 
 
 
@@ -21,6 +21,9 @@ Get set up
 library(tidyverse)
 install.packages("emmeans")
 library(emmeans)
+install.packages("dotwhisker")
+library(dotwhisker)
+install.packages("effects")
 library(effects)
 total_dist_clean <- readRDS("total_dist_moved.rds")
 ```
@@ -78,6 +81,8 @@ anova(model2)
 ```
 
 Prediction plot:
+
+Emmeans:
 - blue lines represent confidence intervals
 - confidence intervals overlap a lot 
 - red lines are pairwise comparisons (mostly put this in to have for future code, I don't need it to do pairwise comparison here)
@@ -86,10 +91,31 @@ Prediction plot:
 plot(emmeans(dist_model, ~ selection_result), comparisons = TRUE)
 ```
 
-Inferential plots:
-
 Effects plot
+- this is same as the plot above functionally because I don't have any covariates here (I just want this code in my notes because I will in the future include covariates for batch and sex and body size)
+- vertical error bars are 95% CIs for the predicted mean
+- CIs overlap substantially
+
 ```{r}
+plot(allEffects(dist_model))
+```
+Inferential plot:
+
+Dot-whisker plot
+- Right now I don't have data for the main covariates that I want to include here, which would be sex, size, and batch, so am working with arena only
+- When have others that will reasonably interact with one another, will swap out for them (I understand that the biological relevance of arena and genotype interactions are minimal, however sex and length are very importnt here so want to make sure I know how to run the code for the future)
+- Looking to see if whiskers cross 0, those that do not are statistically significant at the chosen 95% confidence interval
+- most of my intervals cross 0, meaning that the sign of the effect is unclear
+- Overall, this is not a biologicaly meaningful metric so I won't draw any conclusions from what I see, I just wanted to include something else so I could plot something other than just distance moved by genotype again
+```{r}
+add_model <- lm(dist_moved ~ selection_result+Arena, data=total_dist_clean)
+int_model <- lm(dist_moved ~ selection_result*Arena, data=total_dist_clean)
+
+
+dotwhisker::dwplot(
+              list(additive = add_model, interactive = int_model
+                   )) + geom_vline(xintercept=0, lty =2)
 
 ```
+
 
