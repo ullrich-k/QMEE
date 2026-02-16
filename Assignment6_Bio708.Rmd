@@ -19,6 +19,9 @@ Chose a one way ANOVA because I have a categorical predictor variable (genotype)
 Get set up
 ```{r}
 library(tidyverse)
+install.packages("emmeans")
+library(emmeans)
+library(effects)
 total_dist_clean <- readRDS("total_dist_moved.rds")
 ```
 
@@ -75,7 +78,17 @@ anova(model2)
 ```
 
 Prediction plot:
+- blue lines represent confidence intervals
+- confidence intervals overlap a lot 
+- red lines are pairwise comparisons (mostly put this in to have for future code, I don't need it to do pairwise comparison here)
 
+```{r}
+plot(emmeans(dist_model, ~ selection_result), comparisons = TRUE)
+```
+
+Inferential plots:
+
+Effects plot
 ```{r}
 
 ```
