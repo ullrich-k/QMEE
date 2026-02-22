@@ -1,6 +1,14 @@
 # QMEE
 Bio 708
 
+## Assignment 5 (JD comments)
+
+A good attempt to deal with difficult questions. Your beginning is not promising: “what are the differences” and “what genes are” different? These are not sharp questions: technically the answer would be everything changes, although you wouldn't see most of it without a giant sample size. But you do much better after that. You need to think more about Ucrit thresholds, but you are thinking in the right direction. For deseq, I'm not sure why you want to think separately about significance and size (or why you should be more conservative with a small sample size, the statistics should handle that for you in theory). You can combine ideas (here and maybe for Ucrit) by looking for things whose CI does not overlap the small-effect region (iow, you are confident effect is large).
+
+Grade: 2.1/3
+
+## Assignment 3
+
 JD: Not sure why your third and fourth graphs have the gray background; the fifth graph looks much better without it. You should think about the advantages and disadvantages of including 0 on your vertical scales. I kind of like the fourth figure (except for the gray) and it doesn't bother me that much that I can't exactly tell where the CIs are, I feel like I get the sense of how much they overlap. I liked the discussion and the way you used color to indicate similarity. Grade: 2.1/3
 
 Assignment 3:
