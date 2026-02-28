@@ -1,0 +1,52 @@
+---
+title: "Assignment7_Bio708"
+output: html_document
+date: "2026-02-28"
+---
+```{r}
+```
+
+
+```{r}
+library(tidyverse)
+library(DHARMa)
+#install.packages("see", dependencies = TRUE)
+library(see)
+total_dist_clean <- readRDS("total_dist_moved.rds")
+```
+
+Lets try Gamma and log 
+```{r}
+dist_glm <- glm(dist_moved~selection_result, data=total_dist_clean, family=Gamma(link ="log") )
+summary(dist_glm)
+plot(dist_glm)
+```
+
+```{r}
+performance::check_model(dist_glm)
+```
+
+
+
+Now lets try gaussian with log link
+```{r}
+dist_glm_gauss <- glm(dist_moved~selection_result, data=total_dist_clean, family=gaussian(link ="log") )
+summary(dist_glm_gauss)
+plot(dist_glm_gauss)
+
+```
+```{r}
+performance::check_model(dist_glm_gauss)
+```
+
+now quasipoisson and log link
+```{r}
+dist_glm_qp <- glm(dist_moved~selection_result, data=total_dist_clean, family=quasipoisson(link ="log") )
+summary(dist_glm_qp)
+plot(dist_glm_qp)
+```
+
+```{r}
+performance::check_model(dist_glm_qp)
+```
+
