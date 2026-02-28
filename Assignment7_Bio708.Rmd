@@ -3,8 +3,24 @@ title: "Assignment7_Bio708"
 output: html_document
 date: "2026-02-28"
 ---
-```{r}
+
+Instructions:
+  Make a generalized linear model for one or more of your hypotheses. Draw and discuss at least one of each of the following:
+
+diagnostic plot
+inferential plot (e.g., a coefficient plot, or something from emmeans or effects)
+
 ```
+
+Hypothesis (Prediction):
+My hypothesis is that both genotypes of SETBP1 knockout zebrafish will display a decreased total distance moved relative to both genotypes of wildtype zebrafish in a distance travelled assay
+
+Linear model:
+Overall, I think that a LMM is the most appropriate model for my dataset, because I have very important covariates such as batch, sex, and length that need to be accounted for.
+For the sake of this homework assignment, I have completed a GLM instead. 
+I have a categorical predictor variable (genotype) and a continuous outcome variable, and I am trying to see variance in distance.
+
+
 
 
 ```{r}
@@ -14,6 +30,20 @@ library(DHARMa)
 library(see)
 total_dist_clean <- readRDS("total_dist_moved.rds")
 ```
+
+
+
+
+
+```{r}
+dist_glm_gaus_iden <- glm(dist_moved~selection_result, data=total_dist_clean, family=gaussian(link ="identity") )
+summary(dist_glm_gaus_iden)
+plot(dist_glm_gaus_iden)
+performance::check_model(dist_glm_gaus_iden)
+```
+
+
+
 
 Lets try Gamma and log 
 ```{r}
@@ -48,5 +78,12 @@ plot(dist_glm_qp)
 
 ```{r}
 performance::check_model(dist_glm_qp)
+```
+
+
+```{r}
+dist_glm_gau <- glm(dist_moved~selection_result, data=total_dist_clean, family=gaussian(link ="log") )
+summary(dist_glm_gau)
+plot(dist_glm_gau)
 ```
 
