@@ -12,15 +12,6 @@ inferential plot (e.g., a coefficient plot, or something from emmeans or effects
 
 ```
 
-Hypothesis (Prediction):
-My hypothesis is that both genotypes of SETBP1 knockout zebrafish will display a decreased total distance moved relative to both genotypes of wildtype zebrafish in a distance travelled assay
-
-Linear model:
-Overall, I think that a LMM is the most appropriate model for my dataset, because I have very important covariates such as batch, sex, and length that need to be accounted for.
-For the sake of this homework assignment, I have completed a GLM instead. 
-I have a categorical predictor variable (genotype) and a continuous outcome variable, and I am trying to see variance in distance.
-
-
 
 
 ```{r}
