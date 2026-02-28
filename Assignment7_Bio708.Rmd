@@ -36,16 +36,52 @@ summary(dist_glm_gaus_iden)
 ```
 
 Diagnostic plots:
+
+Residuals vs fitted
+- line follows predicted very closely
+
+Q-Q residuals
+- a straight diagonal line, fits reference line well
+- a little bit tailed at the top, but is minimal, overall still fits well
+
+Scale-location
+- line pretty horizontal, showing consistent residual variance
+- a bit harder to visualize because data is set in lines by the 4 genotypes, but no crazy concerning trend jumping out on the right
+
+
+Residuals vs leverage
+- inside Cook's distance
+  
+Posterior predictive check
+-the model predicted lines peak a little bit earlier and lower than the observed line, it still captures the general shape well but shows some model imperfection (the shape is still very close and the tails are well matched )
+
+Linearity
+- reference line is flat and horizontal (I love it when they tel you right on the plot what you want it to look like)
+
+Homogeneity of variance
+- not a straight horizontal line, but looking at the actual numbers of the range on the y-axis (0.6-1.1) this isn't a huge change, just mild heteroscedasticity
+- might be seeing this as a result of having 4 categories for predictors and a continuous outcome, it is putting my points into only the 4 bands
+
+Influential observations
+- all points are within the contour lines
+
+Normality of residuals
+- all points except for one are within the range of variation that you would expect for normal data (grey area). 
+- doesn't follow center line super well, it starts high - this may show slight skewedness, wherethe most low residual is less extremem than predicted
+- I have a small sample size (total n=65) so some skew isn't crazy to see, esp at the extreme ends that are the most unstable
+-an imperfect fit here isn't enough to suggest that I should switch to another kind of GLM (ofc, my data really calls for a LMM)
+
+
 ```{r}
 plot(dist_glm_gaus_iden)
 performance::check_model(dist_glm_gaus_iden)
 ```
 
-Inferential plots:
+Inferential plot:
 
 Estimated marginal means (emm) plot
 - group means and 95% CI
-- all 4 groups overlap a lot, this shows that the difference in distance travelled between groups is statistically unclear
+- all 4 groups overlap a lot, this shows that the difference in distance traveled between groups is statistically unclear
 ```{r}
 emm <- emmeans(dist_glm_gaus_iden, ~ selection_result)
 plot(emm)
