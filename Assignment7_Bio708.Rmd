@@ -1,0 +1,59 @@
+---
+title: "Untitled"
+output: html_document
+date: "2026-02-28"
+---
+
+Hypothesis (Prediction):
+My hypothesis is that both genotypes of SETBP1 knockout zebrafish will display a decreased total distance moved relative to both genotypes of wildtype zebrafish in a distance travelled assay
+
+Overview:
+Overall, I think that a LMM is the most appropriate model for my dataset, because I have very important covariates such as batch, sex, and length that need to be accounted for.For the sake of this homework assignment, I have completed a GLM instead.
+I have a categorical predictor variable (genotype) and a continuous outcome variable, and I am trying to see variance in distance.
+- Because poisson and quasipoisson are for count variables, these are not appropriate here (even using an offset wouldn't be appropriate for this data type)
+
+
+```{r}
+library(tidyverse)
+library(DHARMa)
+library(see)
+library(emmeans)
+total_dist_clean <- readRDS("total_dist_moved.rds")
+```
+
+
+Model - GLM with a gaussian family and an identity link
+- this in essence is the same as the ANOVA I ran last week 
+- used a gaussian distribution because I am starting off with the assumption that the results will follow a normal distribution
+- used an identity link, this means that the expected value of Y is equal to the linear predictor itself. This is me assuming that the errors are normally distributed.
+- there is no transformation applied in this model
+
+- residual deviance/degrees of freedom is very high, but that rule for overdispersion only applies for poisson/binomial families so don't need to worry about it
+```{r}
+dist_glm_gaus_iden <- glm(dist_moved~selection_result, data=total_dist_clean, family=gaussian(link ="identity") )
+summary(dist_glm_gaus_iden)
+
+```
+
+Diagnostic plots:
+```{r}
+plot(dist_glm_gaus_iden)
+performance::check_model(dist_glm_gaus_iden)
+```
+
+Inferential plots:
+
+Estimated marginal means (emm) plot
+- group means and 95% CI
+- all 4 groups overlap a lot, this shows that the difference in distance travelled between groups is statistically unclear
+```{r}
+emm <- emmeans(dist_glm_gaus_iden, ~ selection_result)
+plot(emm)
+```
+
+
+
+
+
+
+
