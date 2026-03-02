@@ -1,6 +1,9 @@
 # QMEE
 Bio 708
 
+Assignment 7:
+Making a GLM for my distance travelled data. 
+
 ## Assignment 5 (JD comments)
 
 A good attempt to deal with difficult questions. Your beginning is not promising: “what are the differences” and “what genes are” different? These are not sharp questions: technically the answer would be everything changes, although you wouldn't see most of it without a giant sample size. But you do much better after that. You need to think more about Ucrit thresholds, but you are thinking in the right direction. For deseq, I'm not sure why you want to think separately about significance and size (or why you should be more conservative with a small sample size, the statistics should handle that for you in theory). You can combine ideas (here and maybe for Ucrit) by looking for things whose CI does not overlap the small-effect region (iow, you are confident effect is large).
