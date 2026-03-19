@@ -87,9 +87,5 @@ emm <- emmeans(dist_glm_gaus_iden, ~ selection_result)
 plot(emm)
 ```
 
-
-
-
-
-
+JD: Reasonable, but this is not a “generalized” model in any sense. It's exactly the same as a linear model. Better to use the emmeans comparison arrows (or make contrasts) if you are trying to make an inferential plot. Grade 1.8/3
 
