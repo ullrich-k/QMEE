@@ -126,7 +126,7 @@ ggplot(
   )
 ) +
   geom_boxplot() +
-  geom_jitter(alpha = 0.7)+
+  geom_jitter(alpha = 0.2)+
 
   stat_summary(
     fun = median,
